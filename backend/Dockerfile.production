@@ -1,0 +1,27 @@
+# Use the official FastAPI image as a base
+FROM tiangolo/uvicorn-gunicorn-fastapi:latest
+
+# Set environment variables
+ENV PYTHONUNBUFFERED=true
+ENV PYTHONPATH=/app
+
+# Set the working directory in the container
+WORKDIR /app
+
+# Install any necessary dependencies
+RUN pip install --upgrade pip
+
+# Copy the requirements.txt file from the backend directory
+COPY ./backend/requirements.txt /app/
+
+# Install the Python dependencies
+RUN pip install -r requirements.txt
+
+# Copy the application code into the container
+COPY ./backend /app
+
+# Expose the port FastAPI will run on
+EXPOSE 8000
+
+# Run FastAPI with Uvicorn in production mode (without hot-reloading)
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
