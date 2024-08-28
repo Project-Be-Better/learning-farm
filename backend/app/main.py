@@ -5,4 +5,4 @@ app = FastAPI()
 
 @app.get("/")
 def read_root():
-    return {"message": "Welcome to my FastAPI app!, hot reload works"}
+    return {"message": "Welcome to my FastAPI app!"}
